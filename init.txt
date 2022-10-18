@@ -1,0 +1,5 @@
+start project 
+
+1. npm install;
+2. npm run server;
+3. open project in live server or open index.html in browser;

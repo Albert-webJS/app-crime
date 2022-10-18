@@ -1,0 +1,342 @@
+:root {
+  box-sizing: border-box;
+  --background_color: rgba(0, 0, 0, 1);
+  --background_sub-color: rgb(41, 41, 41);
+  --tooltip-color: rgba(34, 34, 34, 1);
+  --main-color: #fff;
+  --sub_text-color: rgba(255, 255, 255, 0.7);
+  --index: calc(1vw + 1vh);
+}
+
+*,
+::before,
+::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: inherit;
+}
+
+body {
+  font-family: Montserrat, sans-serif;
+}
+
+.container {
+  width: 100%;
+  min-height: 100vh;
+
+  background-color: var(--background_color);
+}
+
+.crime {
+  display: grid;
+
+  margin: 0 auto;
+  padding: 56px 15px 30px 15px;
+
+  width: 100%;
+  max-width: 1200px;
+
+  grid-template-columns: 126px minmax(126px, 1200px);
+  grid-gap: 30px 140px;
+  grid-template-areas:
+    "title title"
+    "statistic map"
+    "chart chart";
+}
+
+.crime__title {
+  grid-area: title;
+
+  color: var(--main-color);
+
+  font-weight: 700;
+  font-size: calc(var(--index) * 2);
+  line-height: 45px;
+}
+
+.crime__statistic {
+  color: var(--main-color);
+}
+
+.statistic {
+  grid-area: statistic;
+
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.statistic__title {
+  display: flex;
+  flex-direction: column;
+}
+
+.statistic__count {
+  font-weight: 700;
+  font-size: calc(var(--index) * 2);
+  line-height: 60px;
+}
+
+.statistic__description {
+  color: var(--sub_text-color);
+
+  font-weight: 400;
+  font-size: calc(var(--index) * 0.7);
+  line-height: 24px;
+}
+
+.crime__map {
+  grid-area: map;
+  position: relative;
+}
+
+#canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.crime__box-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+
+  position: absolute;
+  bottom: 0;
+  right: 200px;
+
+  border: 1px solid var(--main-color);
+}
+
+.crime__box-btn:hover {
+  cursor: pointer;
+}
+
+.crime__play {
+  width: 0;
+  height: 0;
+
+  border-top: 8px solid transparent;
+  border-left: 16px solid var(--main-color);
+  border-bottom: 8px solid transparent;
+}
+
+.crime__play.hidden {
+  display: none;
+}
+
+.crime__pause {
+  display: none;
+  width: 3px;
+  height: 14px;
+
+  position: relative;
+  left: -4px;
+  background-color: var(--main-color);
+}
+
+.crime__pause::after {
+  content: "";
+  position: absolute;
+  top: calc(50% - 7px);
+  right: -8px;
+
+  height: 14px;
+  width: 3px;
+  background-color: var(--main-color);
+}
+
+.crime__pause.show {
+  display: block;
+}
+
+#ukraine:hover {
+  cursor: pointer;
+}
+
+.crime__chart {
+  position: relative;
+  width: 100%;
+  max-width: 1040px;
+  height: 68px;
+  grid-area: chart;
+  padding: 0 1px 2px 1px;
+  display: flex;
+  align-items: flex-end;
+  gap: 3px;
+}
+
+.row {
+  display: inline-flex;
+  width: 8px;
+  position: relative;
+  z-index: 1;
+  height: 100%;
+
+  cursor: pointer;
+  align-items: flex-end;
+}
+
+.row span {
+  background-color: var(--background_sub-color);
+}
+
+.row-with-data span {
+  min-height: 1px;
+}
+
+.row::after {
+  content: attr(data-text);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  position: absolute;
+  bottom: -44px;
+  left: calc(50% - 54.5px);
+
+  width: 109px;
+  height: 28px;
+
+  background: var(--tooltip-color);
+
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 20px;
+  color: var(--main-color);
+  visibility: hidden;
+}
+/* TODO add active class if need use javaScript */
+.row:hover::after {
+  visibility: visible;
+  cursor: pointer;
+}
+
+.row.active:after {
+  visibility: visible;
+  cursor: pointer;
+}
+
+.row::before {
+  content: "";
+  position: absolute;
+  bottom: -16px;
+  left: calc(50% - 5px);
+  z-index: 10;
+
+  width: 0;
+  height: 0;
+
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-bottom: 5px solid var(--tooltip-color);
+  visibility: hidden;
+}
+
+.row:hover::before {
+  visibility: visible;
+}
+
+.row.active::before {
+  visibility: visible;
+}
+
+.chart__range {
+  width: 100%;
+  -webkit-appearance: none;
+  appearance: none;
+  height: 2px;
+  background: var(--background_sub-color);
+  position: absolute;
+  left: 0;
+  bottom: 0px;
+  z-index: 2;
+}
+
+.chart__range::-webkit-slider-thumb {
+  position: relative;
+  -webkit-appearance: none;
+  appearance: none;
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+  background: var(--main-color);
+}
+
+.chart__range:focus {
+  outline: none;
+  border-bottom: 3px solid rgb(65, 66, 66);
+}
+
+@media screen and (max-width: 1180px) {
+  .crime {
+    grid-template-columns: 320px minmax(320px, 1200px);
+    grid-template-areas:
+      "title statistic"
+      "map map"
+      "chart chart";
+  }
+  .statistic {
+    flex-direction: row;
+  }
+  .map {
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+  #canvas {
+    max-width: 1000px;
+  }
+  .crime__box-btn {
+    right: 0;
+  }
+}
+
+@media screen and (max-width: 900px) {
+  .crime {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "title"
+      "statistic"
+      "map"
+      "chart";
+    justify-content: center;
+  }
+  .crime__statistic {
+    margin: 0 auto;
+  }
+  .title {
+    text-align: center;
+  }
+  #ukraine-map {
+    max-width: calc(var(--index) * 50);
+  }
+  #canvas {
+    max-width: calc(var(--index) * 50);
+  }
+  .chart {
+    max-width: calc(var(--index) * 50);
+    margin: 0 auto;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  #ukraine-map {
+    max-width: calc(var(--index) * 40);
+  }
+  #canvas {
+    max-width: calc(var(--index) * 40);
+  }
+  .chart {
+    max-width: calc(var(--index) * 40);
+    margin: 0 auto;
+  }
+}
+
+@media screen and (max-width: 548px) {
+  .chart {
+    max-width: calc(var(--index) * 30);
+    margin: 0 auto;
+  }
+}

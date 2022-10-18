@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&display=swap"
+      rel="stylesheet">
+    <link rel="stylesheet" href="./src/style/style.css">
+    <title>Crime topography</title>
+  </head>
+  <body>
+    <div class="container">
+      <div class="crime">
+        <h1 class="crime__title title">Crime topography</h1>
+        <div class="crime__statistic statistic">
+          <h3 class="statistic__title">
+            <span class="statistic__count statistic__count--amount">0</span>
+            <span class="statistic__description">Killed Militarists</span>
+          </h3>
+          <h3 class="statistic__title">
+            <span class="statistic__count">0</span>
+            <span class="statistic__description">Killed doctors</span>
+          </h3>
+          <h3 class="statistic__title">
+            <span class="statistic__count">0</span>
+            <span class="statistic__description">Killed doctors</span>
+          </h3>
+          <h3 class="statistic__title">
+            <span class="statistic__count">0</span>
+            <span class="statistic__description">Killed Civilians</span>
+          </h3>
+        </div>
+        <div class="crime__map map">
+          <canvas id="canvas" width="689" height="459"></canvas>
+          <svg id="ukraine-map" width="689" height="459">
+            <use xlink:href="./src/sprites/map.svg#ukraine"></use>
+          </svg>
+          <div tabindex="1" class="crime__box-btn">
+            <span class="crime__play"></span>
+            <span class="crime__pause"></span>
+          </div>
+        </div>
+        <div class="crime__chart chart">
+          <input tabindex="2" class="chart__range" type="range" value="20">
+        </div>
+      </div>
+    </div>
+    <script src="https://d3js.org/d3.v4.js"></script>
+    <script src="https://d3js.org/d3-geo-projection.v2.min.js"></script>
+    <script type="module" src="./src/js/index.js"></script>
+  </body>
+</html>
